@@ -20,10 +20,12 @@ public class PersonDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
     	//工具类：将ByteBuf转换为byte[]
-        ByteBufToBytes read = new ByteBufToBytes();
-        byte[] bytes = read.read(in);
+//        ByteBufToBytes read = new ByteBufToBytes();
+        byte[] bytse=new byte[in.readableBytes()];
+        in.readBytes(bytse);
+//        byte[] bytes = read.read(in);
         //工具类：将byte[]转换为object
-        Object obj = ByteObjConverter.byteToObject(bytes);
+        Object obj = ByteObjConverter.byteToObject(bytse);
         out.add(obj);
     }
  
