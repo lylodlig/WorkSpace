@@ -17,6 +17,9 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
 		System.out.println("server 读取数据完毕..");
+		Person person=new Person();
+		person.setName("东方红就是");
+		ctx.write(person);
         ctx.flush();//刷新后才将数据发出到SocketChannel
 	}
 
