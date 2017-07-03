@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="cn.itcast.rpc.sample.server"/>
+	
+    <!-- 读取properties配置文件的值 -->
+    <context:property-placeholder location="classpath:rpc.properties"/>
+
+    
+    <!--配置bean，启动框架里面的服务：扫描 工程中配置了注解的添加到框架中map
+    	启动netty -->
+    <bean id="serviceRegistry" class="cn.itcast.rpc.registry.ServiceRegistry">
+        <constructor-arg name="registryAddress" value="${registry.address}"/>
+    </bean>
+
+    <bean id="rpcServer" class="cn.itcast.rpc.server.RpcServer">
+        <constructor-arg name="serverAddress" value="${server.address}"/>
+        <constructor-arg name="serviceRegistry" ref="serviceRegistry"/>
+    </bean>
+
+</beans>
